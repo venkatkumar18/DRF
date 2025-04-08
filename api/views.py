@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import ProductSerializer
+from .serializers import *
 from django.http import JsonResponse
 from api.models import Product, Order, OrderItem, User
 from rest_framework.response import Response
@@ -17,4 +17,10 @@ def product_list(request):
 def product_detail(request, pk):
     products = get_object_or_404(Product, pk=pk)
     serializer = ProductSerializer(products)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def order_list(request):
+    orders = Order.objects.all()
+    serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)

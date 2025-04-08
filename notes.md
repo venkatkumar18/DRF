@@ -1,7 +1,3 @@
 1) Activate virtual environment - Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-
-
-Clone repo 
-user model - modify settings Auth_user_model
-product model (name,desciption,stock,image,price) , in_stock property, str method
-Order model (order_id, status, user, created_at) str method, product m2m through, related name, item_subtotal property
+2) Get dot file - python manage.py graph_models api > models_diagram.dot
+   convert dot file to SVG in this website - file:///C:/Users/isven/Downloads/graphviz.svg

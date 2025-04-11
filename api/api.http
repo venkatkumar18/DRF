@@ -1,0 +1,15 @@
+# Product Get Request
+GET http://localhost:8000/products/
+
+###
+
+# Product Post Request
+POST http://localhost:8000/products/
+Content-Type: application/json
+
+{
+    "name": "Match Box",
+    "description": "It can light perfectly",
+    "price": "5",
+    "stock": 100
+}

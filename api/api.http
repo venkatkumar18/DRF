@@ -1,9 +1,8 @@
-# Product Get Request
+### 1. Product Get Request
 GET http://localhost:8000/products/
 
-###
+### Product Post Request
 
-# Product Post Request
 POST http://localhost:8000/products/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDI5MjEzLCJpYXQiOjE3NDQ0Mjg5MTMsImp0aSI6Ijk5NDU5NzI5ZDkzMzRmNWQ5MzY1NjViMjAyZWZkODIwIiwidXNlcl9pZCI6NH0.NU3G1I_ONdEovNk650Mx5BJ-dry22yVMmtyxlIg5hG4
@@ -15,19 +14,57 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
     "stock": 100
 }
 
-###
+### Product Read
+GET http://localhost:8000/products/10
 
-# Get JWT access and refresh token
+### Product PUT
+PUT http://localhost:8000/products/10/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDMwODEzLCJpYXQiOjE3NDQ0MzA1MTMsImp0aSI6Ijg1ZTRlOGUxYzZhNzQwMWVhODdjOGZkODg4ZmVkYWJhIiwidXNlcl9pZCI6MX0.NCr-qjLV-itmxFQ2bKUFDDdlcszdHhEbhbFfsgu8y0M
+
+{
+    "name": "Match Boxes",
+    "description": "It can light perfectly",
+    "price": "5",
+    "stock": 90
+}
+
+### Patch Products
+
+PATCH http://localhost:8000/products/10/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDMwODEzLCJpYXQiOjE3NDQ0MzA1MTMsImp0aSI6Ijg1ZTRlOGUxYzZhNzQwMWVhODdjOGZkODg4ZmVkYWJhIiwidXNlcl9pZCI6MX0.NCr-qjLV-itmxFQ2bKUFDDdlcszdHhEbhbFfsgu8y0M
+
+{
+    "name": "Match Box"
+}
+
+
+### Patch Products
+
+DELETE http://localhost:8000/products/10/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDMwODEzLCJpYXQiOjE3NDQ0MzA1MTMsImp0aSI6Ijg1ZTRlOGUxYzZhNzQwMWVhODdjOGZkODg4ZmVkYWJhIiwidXNlcl9pZCI6MX0.NCr-qjLV-itmxFQ2bKUFDDdlcszdHhEbhbFfsgu8y0M
+
+### Get JWT access and refresh token, other usernames admmin, john, test with same password
+
 POST http://localhost:8000/api/token/
 Content-Type: application/json
 
-# other usernames admmin, john with same password
-
 {
-    "username": "test",  
+    "username": "admin",  
     "password": "12345" 
 }
 
-### 
+### User Order List
 GET http://localhost:8000/user-orders/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDI5MjEzLCJpYXQiOjE3NDQ0Mjg5MTMsImp0aSI6Ijk5NDU5NzI5ZDkzMzRmNWQ5MzY1NjViMjAyZWZkODIwIiwidXNlcl9pZCI6NH0.NU3G1I_ONdEovNk650Mx5BJ-dry22yVMmtyxlIg5hG4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDI5ODM5LCJpYXQiOjE3NDQ0Mjk1MzksImp0aSI6ImZhYjQ5ZWFiMGMzZTRhYjlhZmNjM2IyYTYyZDY4Y2M1IiwidXNlcl9pZCI6NH0.4OJVYohS4pxrtC1dC78A-HDwqNAWj5nzuF6H1JFP1Ik
+
+
+### Refresh Token
+ 
+POST http://localhost:8000/api/token/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0NDUxNTkzOSwiaWF0IjoxNzQ0NDI5NTM5LCJqdGkiOiJlNDMwZGM4Mzg1OGY0YTM1YThmYTU4YzNhOGYxNjQ2NyIsInVzZXJfaWQiOjR9.HKWofBOUo-5EwO4c48M81mDrHWtDQH13Js0cEwRVlFk"
+}

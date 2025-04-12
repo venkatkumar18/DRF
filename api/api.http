@@ -68,3 +68,12 @@ Content-Type: application/json
 {
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0NDUxNTkzOSwiaWF0IjoxNzQ0NDI5NTM5LCJqdGkiOiJlNDMwZGM4Mzg1OGY0YTM1YThmYTU4YzNhOGYxNjQ2NyIsInVzZXJfaWQiOjR9.HKWofBOUo-5EwO4c48M81mDrHWtDQH13Js0cEwRVlFk"
 }
+
+### Filter records on name
+GET http://localhost:8000/products/?name__icontains=camera
+
+### Filter records based on price
+GET http://localhost:8000/products/?price__gt=100
+
+### Search and Ordering
+GET http://localhost:8000/products/?search=camera&ordering=-price

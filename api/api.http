@@ -6,6 +6,7 @@ GET http://localhost:8000/products/
 # Product Post Request
 POST http://localhost:8000/products/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDI5MjEzLCJpYXQiOjE3NDQ0Mjg5MTMsImp0aSI6Ijk5NDU5NzI5ZDkzMzRmNWQ5MzY1NjViMjAyZWZkODIwIiwidXNlcl9pZCI6NH0.NU3G1I_ONdEovNk650Mx5BJ-dry22yVMmtyxlIg5hG4
 
 {
     "name": "Match Box",
@@ -13,3 +14,20 @@ Content-Type: application/json
     "price": "5",
     "stock": 100
 }
+
+###
+
+# Get JWT access and refresh token
+POST http://localhost:8000/api/token/
+Content-Type: application/json
+
+# other usernames admmin, john with same password
+
+{
+    "username": "test",  
+    "password": "12345" 
+}
+
+### 
+GET http://localhost:8000/user-orders/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDI5MjEzLCJpYXQiOjE3NDQ0Mjg5MTMsImp0aSI6Ijk5NDU5NzI5ZDkzMzRmNWQ5MzY1NjViMjAyZWZkODIwIiwidXNlcl9pZCI6NH0.NU3G1I_ONdEovNk650Mx5BJ-dry22yVMmtyxlIg5hG4

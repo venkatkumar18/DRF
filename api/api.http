@@ -51,7 +51,7 @@ POST http://localhost:8000/api/token/
 Content-Type: application/json
 
 {
-    "username": "admin",  
+    "username": "test",  
     "password": "12345" 
 }
 
@@ -77,3 +77,8 @@ GET http://localhost:8000/products/?price__gt=100
 
 ### Search and Ordering
 GET http://localhost:8000/products/?search=camera&ordering=-price
+
+
+### Orders List
+GET http://localhost:8000/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDkzNTk3LCJpYXQiOjE3NDQ0OTMyOTcsImp0aSI6IjUzYWFhM2NhMzk0MDQ5OGE4N2Q3ZmY5MTU3YzIyZjA4IiwidXNlcl9pZCI6NH0.vE0Fpr6R_0nIFboMu5DHSZrQb6almuXcd9av-qbHemc

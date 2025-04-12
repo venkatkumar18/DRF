@@ -6,13 +6,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path("products/", views.ProductListCreateView.as_view()),
     # path("products/create", views.ProductCreateApiView.as_view()),
     path("products/info/", views.ProductInfoAPIView.as_view()),
     path("products/<int:product_id>/",views.ProductDetailApiView.as_view()),
-    path("orders/", views.OrderListApiView.as_view()),
+    # path("orders/", views.OrderListApiView.as_view()),
     path("user-orders/", views.UserOrderListApiView.as_view(),name='user-orders')
 ]
 
@@ -54,3 +55,8 @@ urlpatterns += [
    path('api/yasg/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('api/yasg/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+router = DefaultRouter()
+router.register("orders", views.OrdersViewSet)
+
+urlpatterns += router.urls

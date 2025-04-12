@@ -14,9 +14,10 @@ from rest_framework.permissions import (
 )
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
-from api.filters import ProductFilter, InStockFilter
-from rest_framework import filters
+from api.filters import ProductFilter, InStockFilter, OrderFiler
+from rest_framework import filters, viewsets
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework.decorators import action
 
 
 class ProductListCreateView(generics.ListCreateAPIView):
@@ -69,10 +70,33 @@ class ProductDetailApiView(generics.RetrieveUpdateDestroyAPIView):
 #     serializer_class = ProductSerializer
 #     lookup_url_kwarg = "product_id"
 
-class OrderListApiView(generics.ListAPIView):
+class OrdersViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.prefetch_related("items__product")
     serializer_class = OrderSerializer
     pagination_class = LimitOffsetPagination
+    permission_classes = [IsAuthenticated]
+    filterset_class = OrderFiler
+    filter_backends = [DjangoFilterBackend]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_staff:
+            qs = qs.filter(user=self.request.user)
+        return qs
+
+    # @action(detail=False,
+    #         methods=["get"],
+    #         url_path="user-orders",
+    #         permission_classes=[IsAuthenticated])
+    # def user_orders(self, request):
+    #     queryset = self.get_queryset().filter(user=request.user)
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer.data) 
+
+# class OrderListApiView(generics.ListAPIView):
+#     queryset = Order.objects.prefetch_related("items__product")
+#     serializer_class = OrderSerializer
+#     pagination_class = LimitOffsetPagination
 
 class UserOrderListApiView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related("items__product")

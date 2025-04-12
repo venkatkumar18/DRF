@@ -16,6 +16,8 @@ from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from api.filters import ProductFilter, InStockFilter
 from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+
 
 class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -29,6 +31,13 @@ class ProductListCreateView(generics.ListCreateAPIView):
     ]
     search_fields = ['name', 'description']
     ordering_fields = ['name', 'price', 'stock']
+
+    pagination_class = PageNumberPagination
+    pagination_class.page_size = 2
+    pagination_class.page_query_param = 'pagenum'
+    pagination_class.page_size_query_param = 'size'
+    pagination_class.max_page_size = 4
+
     
     def get_permissions(self):
         self.permission_classes = [AllowAny]
@@ -63,6 +72,7 @@ class ProductDetailApiView(generics.RetrieveUpdateDestroyAPIView):
 class OrderListApiView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related("items__product")
     serializer_class = OrderSerializer
+    pagination_class = LimitOffsetPagination
 
 class UserOrderListApiView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related("items__product")

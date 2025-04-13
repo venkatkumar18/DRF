@@ -19,7 +19,6 @@ from rest_framework import filters, viewsets
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from rest_framework.decorators import action
 
-
 class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -83,6 +82,20 @@ class OrdersViewSet(viewsets.ModelViewSet):
         if not self.request.user.is_staff:
             qs = qs.filter(user=self.request.user)
         return qs
+
+    def get_serializer_class(self):
+        if self.action == "create" or self.action == "update":
+            return OrderCreateSerializer
+        return super().get_serializer_class()
+    
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserListSerializer
+    permission_classes = [AllowAny]
+
 
     # @action(detail=False,
     #         methods=["get"],

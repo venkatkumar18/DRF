@@ -4,3 +4,4 @@
 3) To run testcase - python manage.py test
 4) To generate api documentation to a yml file using drf spectacular package- python manage.py spectacular --color --file schema.yml
 5) To start redids docker instance - docker run --name django-redis -d -p 6379:6379 --rm redis
+6) To start celery worker - celery -A drf_course worker --loglevel=INFO --pool=solo

@@ -16,6 +16,7 @@ from rest_framework.views import APIView
 from api.filters import InStockFilter, OrderFiler, ProductFilter
 from api.models import Order, OrderItem, Product, User
 from rest_framework.throttling import ScopedRateThrottle
+from api.tasks import send_mail_on_order_creation
 
 from .serializers import *
 
@@ -110,7 +111,8 @@ class OrdersViewSet(viewsets.ModelViewSet):
         return super().get_serializer_class()
     
     def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+        order = serializer.save(user=self.request.user)
+        send_mail_on_order_creation.delay(order.order_id, self.request.user.email)
 
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()

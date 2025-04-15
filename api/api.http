@@ -51,7 +51,7 @@ POST http://localhost:8000/api/token/
 Content-Type: application/json
 
 {
-    "username": "test",  
+    "username": "admin",  
     "password": "12345" 
 }
 
@@ -98,18 +98,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### Order Create
 POST http://localhost:8000/orders/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NzA1NTMyLCJpYXQiOjE3NDQ3MDE5MzIsImp0aSI6Ijg3ZmFhM2Q0ZDk3MjRkY2JiYzMyNzY4NGNlMmQzZDg2IiwidXNlcl9pZCI6NH0.AAiCL7f7AoW7JD2cg7v6IMd8cKf7tRVn3mkFPJcC_lE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NzIxNTM4LCJpYXQiOjE3NDQ3MTc5MzgsImp0aSI6ImM3MDk1NGE0MjI1YzQwMjU5ZjQxMzI2YzE2OWZjNWNjIiwidXNlcl9pZCI6MX0.ATFT7rrQOnFCTl2ZG1QmTjJBKInUUmSTUTlAm3RMZT4
 Content-Type: application/json
 
 {
     "status": "Pending",
     "items": [
         {
-            "product": 4,
-            "quantity": 4
+            "product": 7,
+            "quantity": 1
         },
         {
-            "product": 7,
+            "product": 1,
             "quantity": 7
         }
     ]

@@ -15,6 +15,7 @@ from rest_framework.views import APIView
 
 from api.filters import InStockFilter, OrderFiler, ProductFilter
 from api.models import Order, OrderItem, Product, User
+from rest_framework.throttling import ScopedRateThrottle
 
 from .serializers import *
 
@@ -37,6 +38,8 @@ class ProductListCreateView(generics.ListCreateAPIView):
     pagination_class.page_query_param = 'pagenum'
     pagination_class.page_size_query_param = 'size'
     pagination_class.max_page_size = 4
+    throttle_scope = 'products'
+    throttle_classes = [ScopedRateThrottle]
 
     @method_decorator(cache_page(60 * 15, key_prefix='product_list'))
     def list(self, request, *args, **kwargs):
@@ -85,6 +88,8 @@ class OrdersViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     filterset_class = OrderFiler
     filter_backends = [DjangoFilterBackend]
+    throttle_scope = 'orders'
+    throttle_classes = [ScopedRateThrottle]
 
     @method_decorator(cache_page(60 * 15, key_prefix='order_list'))
     @method_decorator(vary_on_headers("Authorization"))

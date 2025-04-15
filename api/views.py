@@ -1,23 +1,23 @@
-from django.shortcuts import render
-from .serializers import *
-from django.http import JsonResponse
-from api.models import Product, Order, OrderItem, User
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from django.shortcuts import get_object_or_404
 from django.db.models import Max
-from rest_framework import generics
-from rest_framework.permissions import (
-    IsAuthenticated,
-    IsAdminUser,
-    AllowAny
-)
-from rest_framework.views import APIView
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.views.decorators.vary import vary_on_headers
 from django_filters.rest_framework import DjangoFilterBackend
-from api.filters import ProductFilter, InStockFilter, OrderFiler
-from rest_framework import filters, viewsets
-from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
-from rest_framework.decorators import action
+from rest_framework import filters, generics, viewsets
+from rest_framework.decorators import action, api_view
+from rest_framework.pagination import (LimitOffsetPagination,
+                                       PageNumberPagination)
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from api.filters import InStockFilter, OrderFiler, ProductFilter
+from api.models import Order, OrderItem, Product, User
+
+from .serializers import *
+
 
 class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -33,12 +33,21 @@ class ProductListCreateView(generics.ListCreateAPIView):
     ordering_fields = ['name', 'price', 'stock']
 
     pagination_class = PageNumberPagination
-    pagination_class.page_size = 2
+    pagination_class.page_size = 10
     pagination_class.page_query_param = 'pagenum'
     pagination_class.page_size_query_param = 'size'
     pagination_class.max_page_size = 4
 
+    @method_decorator(cache_page(60 * 15, key_prefix='product_list'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
     
+    def get_queryset(self):
+        import time
+        time.sleep(2)
+        return super().get_queryset()  
+
+
     def get_permissions(self):
         self.permission_classes = [AllowAny]
         if self.request.method == "POST":
@@ -77,7 +86,14 @@ class OrdersViewSet(viewsets.ModelViewSet):
     filterset_class = OrderFiler
     filter_backends = [DjangoFilterBackend]
 
+    @method_decorator(cache_page(60 * 15, key_prefix='order_list'))
+    @method_decorator(vary_on_headers("Authorization"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)  
+
     def get_queryset(self):
+        import time
+        time.sleep(2)
         qs = super().get_queryset()
         if not self.request.user.is_staff:
             qs = qs.filter(user=self.request.user)

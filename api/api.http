@@ -51,9 +51,21 @@ POST http://localhost:8000/api/token/
 Content-Type: application/json
 
 {
-    "username": "admin",  
+    "username": "test",  
     "password": "12345" 
 }
+
+
+### Get JWT access and refresh token, other usernames admmin, john, test with same password
+
+POST http://localhost:8000/api/token/
+Content-Type: application/json
+
+{
+    "username": "john",  
+    "password": "12345" 
+}
+
 
 ### User Order List
 GET http://localhost:8000/user-orders/
@@ -80,25 +92,25 @@ GET http://localhost:8000/products/?search=camera&ordering=-price
 
 
 ### Orders List
-GET http://localhost:8000/orders
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NDkzNTk3LCJpYXQiOjE3NDQ0OTMyOTcsImp0aSI6IjUzYWFhM2NhMzk0MDQ5OGE4N2Q3ZmY5MTU3YzIyZjA4IiwidXNlcl9pZCI6NH0.vE0Fpr6R_0nIFboMu5DHSZrQb6almuXcd9av-qbHemc
+GET http://localhost:8000/orders/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NzA1NTMyLCJpYXQiOjE3NDQ3MDE5MzIsImp0aSI6Ijg3ZmFhM2Q0ZDk3MjRkY2JiYzMyNzY4NGNlMmQzZDg2IiwidXNlcl9pZCI6NH0.AAiCL7f7AoW7JD2cg7v6IMd8cKf7tRVn3mkFPJcC_lE
 
 
 ### Order Create
 POST http://localhost:8000/orders/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NTIzMDE0LCJpYXQiOjE3NDQ1MjI3MTQsImp0aSI6ImQ4NWFhYWQxNTY2NzRlMjNiM2I1YWQ5MmE1YWM1NDZlIiwidXNlcl9pZCI6MX0.zFfhKQ1jCQus4XWM_tuH497WT59CBfPzUZvlz98DbSI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ0NzA1NTMyLCJpYXQiOjE3NDQ3MDE5MzIsImp0aSI6Ijg3ZmFhM2Q0ZDk3MjRkY2JiYzMyNzY4NGNlMmQzZDg2IiwidXNlcl9pZCI6NH0.AAiCL7f7AoW7JD2cg7v6IMd8cKf7tRVn3mkFPJcC_lE
 Content-Type: application/json
 
 {
     "status": "Pending",
     "items": [
         {
-            "product": 6,
-            "quantity": 1
+            "product": 4,
+            "quantity": 4
         },
         {
-            "product": 1,
-            "quantity": 1
+            "product": 7,
+            "quantity": 7
         }
     ]
 }
